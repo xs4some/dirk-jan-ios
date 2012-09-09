@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>Title</key>
+		<string>Dirk Jan</string>
+		<key>Content</key>
+		<string>DirkJan is een Nederlandse stripreeks van Mark Retera, die zowel de tekst als de tekeningen verzorgt. Het is ook de naam van de hoofdpersoon van de strip. De hoofdpersoon is een antiheld die (meestal) in een strook van drie plaatjes zijn weg in het leven probeert te vinden.</string>
+		<key>Link</key>
+		<string>http://www.comichouse.nl/ne/illustration/2d/retera/</string>
+	</dict>
+	<dict>
+		<key>Title</key>
+		<string>Deze App</string>
+		<key>Content</key>
+		<string>Deze App is gemaakt door Hendrik Bruinsma, omdat het kan en om de geniaalheid van de Dirk Jan strips!</string>
+		<key>Link</key>
+		<string>http://xs4some.nl/app</string>
+	</dict>
+	<dict>
+		<key>Title</key>
+		<string>Disclaimer</string>
+		<key>Content</key>
+		<string>Gebruikte open source software</string>
+	</dict>
+</array>
+</plist>
