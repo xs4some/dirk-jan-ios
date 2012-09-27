@@ -10,6 +10,7 @@
 
 #import "CartoonsViewController.h"
 #import "InformationViewController.h"
+#import "Const.h"
 
 @implementation AppDelegate
 
@@ -17,6 +18,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     
     if ([userDefaults objectForKey:@"LastUpdated"])
@@ -29,11 +31,32 @@
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
+    NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:
+                                UIColorFromRGB(kColourNavigationButtons), UITextAttributeTextColor,
+                                [UIColor clearColor], UITextAttributeTextShadowColor, nil];
+    
+    [[UIBarButtonItem appearance] setTitleTextAttributes: attributes forState: UIControlStateNormal];
+    
     UIViewController *viewController1 = [[CartoonsViewController alloc] initWithNibName:@"CartoonsViewController" bundle:nil];
     UINavigationController *navigationController1 = [[UINavigationController alloc] initWithRootViewController:viewController1];
-    
+//    [navigationController1.navigationBar setBackgroundColor:UIColorFromRGB(kColourNavigationBar)];
+
     UIViewController *viewController2 = [[InformationViewController alloc] initWithNibName:@"InformationViewController" bundle:nil];
     UINavigationController *navigationController2 = [[UINavigationController alloc] initWithRootViewController:viewController2];
+    if (iPhone5) {
+        [navigationController1.navigationBar setBackgroundImage:[UIImage imageNamed:@"NavigationBar-568h~Landscape.png"] forBarMetrics:UIBarMetricsLandscapePhone];
+        [navigationController2.navigationBar setBackgroundImage:[UIImage imageNamed:@"NavigationBar-568h~Landscape.png"] forBarMetrics:UIBarMetricsLandscapePhone];
+    } else
+    {
+        [navigationController1.navigationBar setBackgroundImage:[UIImage imageNamed:@"NavigationBar~Landscape.png"] forBarMetrics:UIBarMetricsLandscapePhone];
+        [navigationController2.navigationBar setBackgroundImage:[UIImage imageNamed:@"NavigationBar~Landscape.png"] forBarMetrics:UIBarMetricsLandscapePhone];
+    }
+    
+    [navigationController1.navigationBar setBackgroundImage:[UIImage imageNamed:@"NavigationBar.png"] forBarMetrics:UIBarMetricsDefault];
+    [navigationController1.navigationBar setTintColor:UIColorFromRGB(kColourNavigationBar)];
+    
+    [navigationController2.navigationBar setBackgroundImage:[UIImage imageNamed:@"NavigationBar.png"] forBarMetrics:UIBarMetricsDefault];
+    [navigationController2.navigationBar setTintColor:UIColorFromRGB(kColourNavigationBar)];
         
     self.tabBarController = [[UITabBarController alloc] init];
     self.tabBarController.viewControllers = @[navigationController1, navigationController2];
@@ -70,19 +93,5 @@
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
-
-/*
-// Optional UITabBarControllerDelegate method.
-- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController
-{
-}
-*/
-
-/*
-// Optional UITabBarControllerDelegate method.
-- (void)tabBarController:(UITabBarController *)tabBarController didEndCustomizingViewControllers:(NSArray *)viewControllers changed:(BOOL)changed
-{
-}
-*/
 
 @end
