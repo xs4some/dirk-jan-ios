@@ -1,0 +1,31 @@
+/*
+ Localisation.strings
+ DirkJan
+ 
+ Created by Hendrik Bruinsma on 08-09-12.
+ Copyright (c) 2012 Hendrik Bruinsma. All rights reserved.
+ */
+
+/* General texts */
+"OK" = "Ok";
+"CANCEL" = "Cancel";
+"NO_CONNECTION" = "Sharing is not possible without an internet connection. Please try again later.";
+
+/* Cartoons screen */
+"CARTOON_TITLE" = "Cartoon";
+
+
+"INFO_TITLE" = "Info";
+"DISCLAIMER_TITLE" = "Disclaimer";
+
+/* Share options */
+
+"SHARE_BUTTON" = "Share";
+"SHARE_VIA" = "Share with";
+"SHARE_MAIL" = "E-mail";
+"SHARE_MAIL_SUBJECT" = "Check out this Dirk Jan!";
+"SHARE_TWITTER" = "Twitter";
+"SHARE_FACEBOOK" = "Facebook";
+"SHARE_GOOGLE" = "Google+";
+
+"SHARED_WITH" = "\n Shared with DirkJanApp http://bit.ly/DirkJanApp";
