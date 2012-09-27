@@ -24,7 +24,17 @@
 -(id)initService
 {
     NSString *serviceUrl = kCartoonUrl;
-    NSString *userAgent = kHttpUserAgent;
+    NSString *userAgent = nil;
+    
+    if (iPad) {
+        userAgent = kHttpUserAgentiPad;
+    } else
+    {
+        userAgent = kHttpUserAgentiPhone;
+    }
+    if (Retina) {
+        userAgent = [NSString stringWithFormat:@"%@:[Retina]", userAgent];
+    }
     
     self = [self initWithURLString:serviceUrl params:nil httpMethod:@"GET"];
     
