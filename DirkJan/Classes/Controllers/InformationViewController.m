@@ -8,6 +8,7 @@
 
 #import "InformationViewController.h"
 #import "DisclaimerViewController.h"
+#import "Const.h"
 
 @interface InformationViewController ()
 
@@ -18,10 +19,22 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
+    if (self)
+    {
         self.title = NSLocalizedString(@"INFO_TITLE", @"");
         self.tabBarItem.image = [UIImage imageNamed:@"info.png"];
+        
+        // this will appear as the title in the navigation bar
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectZero];
+        label.backgroundColor = [UIColor clearColor];
+        label.font = [UIFont systemFontOfSize:18.0];
+        label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
+        label.textAlignment = UITextAlignmentCenter;
+        label.textColor = [UIColor blackColor];
+        self.navigationItem.titleView = label;
+        [label sizeToFit];
     }
+    
     return self;
 }
 
@@ -109,7 +122,7 @@
         [self.navigationController pushViewController:disclaimerViewController animated:YES];
     } else
     {
-        NSURL *link = [[self.informationList objectAtIndex:indexPath.section] objectForKey:@"Link"];
+        NSURL *link = [NSURL URLWithString:[[self.informationList objectAtIndex:indexPath.section] objectForKey:@"Link"]];
         
         // is Chrome installed?
         if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"googlechrome://"]])
