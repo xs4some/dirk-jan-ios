@@ -15,12 +15,48 @@
 #import "MBProgressHUD.h"
 #import "SORelativeDateTransformer.h"
 #import "CartoonDetailViewController.h"
+#import "Const.h"
+
+#import "tgmath.h"
 
 @interface CartoonsViewController ()
 
 @end
 
 @implementation CartoonsViewController
+
+@synthesize bannerIsVisible, bannerView, orientation;
+
+#pragma mark - iAD methods
+
+#if kEnableAdds
+- (void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error
+{
+    if (self.bannerIsVisible)
+    {
+        [UIView beginAnimations:@"animateAdBannerOff" context:NULL];
+        // Assumes the banner view is placed at the bottom of the screen.
+//        banner.frame = CGRectOffset(banner.frame, 0, banner.frame.size.height);
+        [UIView commitAnimations];
+        [self setBannerIsVisible:NO];
+        [self.tableView reloadData];
+    }
+}
+
+- (void)bannerViewDidLoadAd:(ADBannerView *)banner
+{
+    if (!self.bannerIsVisible)
+    {
+        [UIView beginAnimations:@"animateAdBannerOn" context:NULL];
+        // Assumes the banner view is just off the bottom of the screen.
+//        banner.frame = CGRectOffset(banner.frame, 0, -banner.frame.size.height);
+        [UIView commitAnimations];
+        [self setBannerIsVisible:YES];
+        [self.tableView reloadData];
+    }
+}
+
+#endif
 
 - (void)reloadData
 {
@@ -54,16 +90,38 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
+    if (self)
+    {
         self.title = NSLocalizedString(@"CARTOON_TITLE", @"");
         self.tabBarItem.image = [UIImage imageNamed:@"warning.png"];
+        // this will appear as the title in the navigation bar
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectZero];
+        label.backgroundColor = [UIColor clearColor];
+        label.font = [UIFont systemFontOfSize:18.0];
+        label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
+        label.textAlignment = UITextAlignmentCenter;
+        label.textColor = [UIColor blackColor];
+        self.navigationItem.titleView = label;
+        [label sizeToFit];
     }
+    
     return self;
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+#if kEnableAdds
+    [self setBannerIsVisible:NO];
+    [self.bannerView setDelegate:self];
+    self.bannerView = [[ADBannerView alloc] initWithFrame:CGRectZero];
+    self.bannerView.currentContentSizeIdentifier = ADBannerContentSizeIdentifierPortrait;
+//    [self.view addSubview:self.bannerView];
+#endif
+    
+    [self.tableView setSeparatorColor:UIColorFromRGB(kColourCellSeperator)];
+    [self.tableView setBackgroundColor:UIColorFromRGB(kColourOddCells)];
+    
     
     [self reloadData];
 }
@@ -80,12 +138,42 @@
     return YES;
 }
 
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+#if kEnableAdds
+    if (UIInterfaceOrientationIsLandscape(toInterfaceOrientation))
+    {
+        self.bannerView.currentContentSizeIdentifier = ADBannerContentSizeIdentifierLandscape;
+    } else
+    {
+        self.bannerView.currentContentSizeIdentifier = ADBannerContentSizeIdentifierPortrait;
+    }
+#endif
+}
+
 #pragma mark - Table view data source
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 44.0
-    ;
+#if kEnableAdds
+    if (self.bannerIsVisible) {
+        switch (self.orientation) {
+            case UIInterfaceOrientationLandscapeLeft:
+            case UIInterfaceOrientationLandscapeRight:
+                return 32;
+                break;
+                
+            case UIInterfaceOrientationPortrait:
+            case UIInterfaceOrientationPortraitUpsideDown:
+            default:
+                return 50;
+                break;
+        }
+        return 22;
+    }
+#endif
+    
+    return 24.0;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -105,6 +193,18 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"CartoonCell";
+
+    #if kEnableAdds
+    if (self.bannerIsVisible && indexPath.row == 0)
+    {
+        UITableViewCell *addCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"AddCell"];
+        
+        [addCell addSubview:self.bannerView];
+        
+        return addCell;
+    }
+#endif
+    
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     if (!cell)
@@ -112,19 +212,30 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         
         cell.textLabel.textColor = UIColorFromRGB(0x414141);
+        cell.textLabel.backgroundColor = [UIColor clearColor];
+        cell.textLabel.font = [UIFont systemFontOfSize:12.0f];
     }
     
+    if(indexPath.row % kColourCellsInaRow)
+    {
+        cell.contentView.backgroundColor = UIColorFromRGB(kColourOddCells);
+    } else
+    {
+        cell.contentView.backgroundColor = UIColorFromRGB(kColourEvenCells);
+    }
+    
+#if kEnableAdds
+    Cartoon *cartoon = [self.cartoons objectAtIndex:indexPath.row - 1];
+#else
     Cartoon *cartoon = [self.cartoons objectAtIndex:indexPath.row];
+#endif
     
     NSDate *date = [NSDate dateWithTimeIntervalSince1970:[cartoon date]];
     
     SORelativeDateTransformer *relativeDateTransformer = [[SORelativeDateTransformer alloc] init];
     
     cell.textLabel.text = [relativeDateTransformer transformedValue:date];
-    
 
-    
-    // Configure the cell...
     
     return cell;
 }
@@ -136,8 +247,13 @@
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     CartoonDetailViewController *controller = [[CartoonDetailViewController alloc] init];
-    
+
+#if kEnableAdds
+    controller.cartoon = [self.cartoons objectAtIndex:indexPath.row - 1];
+#else
     controller.cartoon = [self.cartoons objectAtIndex:indexPath.row];
+#endif
+    
     [controller setHidesBottomBarWhenPushed:YES];
     
     [self.navigationController pushViewController:controller animated:YES];
