@@ -7,4 +7,4 @@ For those who don't know Dirk Jan, it's a marvalous cartoon created by [Mark Ret
 
 License
 =======
-New BSD License, see [LICENSE](LICENSE)
+New BSD License, see [LICENSE](https://github.com/hbruinsma/dirk-jan-ios/blob/master/LICENSE)
