@@ -73,6 +73,7 @@
                                     //TODO: Do something, when the results are strange.
                                 } else {
                                     //TODO: show that
+                                    [self.refreshControl endRefreshing];
                                     self.cartoons = cartoonsFromService;
                                 }
                                 
@@ -118,6 +119,13 @@
     self.bannerView.currentContentSizeIdentifier = ADBannerContentSizeIdentifierPortrait;
 //    [self.view addSubview:self.bannerView];
 #endif
+    
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+    [refreshControl addTarget:self action:@selector(reloadData)
+             forControlEvents:UIControlEventValueChanged];
+    refreshControl.tintColor = UIColorFromRGB(kColourNavigationBar);
+    
+    self.refreshControl = refreshControl;
     
     [self.tableView setSeparatorColor:UIColorFromRGB(kColourCellSeperator)];
     [self.tableView setBackgroundColor:UIColorFromRGB(kColourOddCells)];
@@ -214,6 +222,9 @@
         cell.textLabel.textColor = UIColorFromRGB(0x414141);
         cell.textLabel.backgroundColor = [UIColor clearColor];
         cell.textLabel.font = [UIFont systemFontOfSize:12.0f];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cell.selectedBackgroundView.backgroundColor = UIColorFromRGB(kColourNavigationBar);
     }
     
     if(indexPath.row % kColourCellsInaRow)
