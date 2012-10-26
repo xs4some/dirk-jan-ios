@@ -217,13 +217,16 @@
     
     if (!cell)
     {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
         
         cell.textLabel.textColor = UIColorFromRGB(0x414141);
         cell.textLabel.backgroundColor = [UIColor clearColor];
         cell.textLabel.font = [UIFont systemFontOfSize:12.0f];
+        cell.detailTextLabel.text = @">";
+        cell.detailTextLabel.backgroundColor = [UIColor clearColor];
+        cell.detailTextLabel.textColor = UIColorFromRGB(0x414141);
+        cell.detailTextLabel.font = [UIFont boldSystemFontOfSize:12.0f];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         cell.selectedBackgroundView.backgroundColor = UIColorFromRGB(kColourNavigationBar);
     }
     
