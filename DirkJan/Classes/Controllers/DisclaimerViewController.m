@@ -7,6 +7,7 @@
 //
 
 #import "DisclaimerViewController.h"
+#import "Const.h"
 
 @interface DisclaimerViewController ()
 
@@ -20,7 +21,6 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.title = NSLocalizedString(@"DISCLAIMER_TITLE", @"");
     }
     return self;
 }
@@ -43,11 +43,15 @@
 }
 
 #pragma mark - Table view data source
-//
-//- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-//{
-//    return [[self.licenses objectAtIndex:section] objectForKey:@"License"];
-//}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    if (section == 0)
+    {
+        return NSLocalizedString(@"DISCLAIMER_TITLE", @"");
+    }
+    return @"";
+}
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section;
 {
