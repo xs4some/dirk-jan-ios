@@ -110,6 +110,9 @@
                               onCompletion:^(UIImage *fetchedImage, NSURL *url, BOOL isInCache) {
                                   if (isInCache) {
                                       self.imageView.image = fetchedImage;
+                                      
+                                      CGSize imageSize = CGSizeMake(self.imageView.image.size.width, self.imageView.image.size.height);
+                                      [self.scrollView setContentSize:imageSize];
                                   } else
                                   {
                                       UIImageView *loadedImageView = [[UIImageView alloc] initWithImage:fetchedImage];
