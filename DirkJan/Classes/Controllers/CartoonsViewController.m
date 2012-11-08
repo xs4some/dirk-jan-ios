@@ -72,8 +72,11 @@
                                 if (! cartoonsFromService || [cartoonsFromService count] < 1 ) {
                                     //TODO: Do something, when the results are strange.
                                 } else {
-                                    //TODO: show that
-                                    [self.refreshControl endRefreshing];
+                                    if (NSClassFromString(@"UIRefreshControl") != nil)
+                                    {
+                                        [self.refreshControl endRefreshing];
+                                    }
+                                    
                                     self.cartoons = cartoonsFromService;
                                 }
                                 
@@ -120,12 +123,22 @@
 //    [self.view addSubview:self.bannerView];
 #endif
     
-    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
-    [refreshControl addTarget:self action:@selector(reloadData)
-             forControlEvents:UIControlEventValueChanged];
-    refreshControl.tintColor = UIColorFromRGB(kColourNavigationBar);
+    if (NSClassFromString(@"UIRefreshControl") != nil)
+    {
+        UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+        [refreshControl addTarget:self action:@selector(reloadData)
+                 forControlEvents:UIControlEventValueChanged];
+        refreshControl.tintColor = UIColorFromRGB(kColourNavigationBar);
+        
+        self.refreshControl = refreshControl;
+    } else
+    {
+        UIBarButtonItem *refreshButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh
+                                                                                       target:self
+                                                                                       action:@selector(reloadData)];
+        self.navigationItem.rightBarButtonItem = refreshButton;
+    }
     
-    self.refreshControl = refreshControl;
     
     [self.tableView setSeparatorColor:UIColorFromRGB(kColourCellSeperator)];
     [self.tableView setBackgroundColor:UIColorFromRGB(kColourOddCells)];
