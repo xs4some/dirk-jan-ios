@@ -7,13 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <iAd/iAd.h>
 
-@interface CartoonsViewController : UITableViewController <ADBannerViewDelegate>
+@interface CartoonsViewController : UITableViewController
 
 @property (nonatomic,retain) NSArray *cartoons;
-@property (nonatomic) Boolean bannerIsVisible;
-@property (nonatomic, retain) ADBannerView *bannerView;
-@property (nonatomic) UIInterfaceOrientation orientation;
 
 @end

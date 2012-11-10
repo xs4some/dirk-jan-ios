@@ -9,7 +9,6 @@
 #ifndef DirkJan_Const_h
 #define DirkJan_Const_h
 
-#define kEnableAdds NO
 #define kEnableEmail YES
 #define kEnableTwitter YES
 #define kEnableFaceBook NO

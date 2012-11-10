@@ -25,39 +25,6 @@
 
 @implementation CartoonsViewController
 
-@synthesize bannerIsVisible, bannerView, orientation;
-
-#pragma mark - iAD methods
-
-#if kEnableAdds
-- (void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error
-{
-    if (self.bannerIsVisible)
-    {
-        [UIView beginAnimations:@"animateAdBannerOff" context:NULL];
-        // Assumes the banner view is placed at the bottom of the screen.
-//        banner.frame = CGRectOffset(banner.frame, 0, banner.frame.size.height);
-        [UIView commitAnimations];
-        [self setBannerIsVisible:NO];
-        [self.tableView reloadData];
-    }
-}
-
-- (void)bannerViewDidLoadAd:(ADBannerView *)banner
-{
-    if (!self.bannerIsVisible)
-    {
-        [UIView beginAnimations:@"animateAdBannerOn" context:NULL];
-        // Assumes the banner view is just off the bottom of the screen.
-//        banner.frame = CGRectOffset(banner.frame, 0, -banner.frame.size.height);
-        [UIView commitAnimations];
-        [self setBannerIsVisible:YES];
-        [self.tableView reloadData];
-    }
-}
-
-#endif
-
 - (void)reloadData
 {
     MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:self.view];
@@ -115,13 +82,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-#if kEnableAdds
-    [self setBannerIsVisible:NO];
-    [self.bannerView setDelegate:self];
-    self.bannerView = [[ADBannerView alloc] initWithFrame:CGRectZero];
-    self.bannerView.currentContentSizeIdentifier = ADBannerContentSizeIdentifierPortrait;
-//    [self.view addSubview:self.bannerView];
-#endif
     
     if (NSClassFromString(@"UIRefreshControl") != nil)
     {
@@ -139,10 +99,8 @@
         self.navigationItem.rightBarButtonItem = refreshButton;
     }
     
-    
     [self.tableView setSeparatorColor:UIColorFromRGB(kColourCellSeperator)];
     [self.tableView setBackgroundColor:UIColorFromRGB(kColourOddCells)];
-    
     
     [self reloadData];
 }
@@ -159,41 +117,10 @@
     return YES;
 }
 
-- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
-{
-#if kEnableAdds
-    if (UIInterfaceOrientationIsLandscape(toInterfaceOrientation))
-    {
-        self.bannerView.currentContentSizeIdentifier = ADBannerContentSizeIdentifierLandscape;
-    } else
-    {
-        self.bannerView.currentContentSizeIdentifier = ADBannerContentSizeIdentifierPortrait;
-    }
-#endif
-}
-
 #pragma mark - Table view data source
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-#if kEnableAdds
-    if (self.bannerIsVisible) {
-        switch (self.orientation) {
-            case UIInterfaceOrientationLandscapeLeft:
-            case UIInterfaceOrientationLandscapeRight:
-                return 32;
-                break;
-                
-            case UIInterfaceOrientationPortrait:
-            case UIInterfaceOrientationPortraitUpsideDown:
-            default:
-                return 50;
-                break;
-        }
-        return 22;
-    }
-#endif
-    
+{    
     return 24.0;
 }
 
@@ -214,17 +141,6 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"CartoonCell";
-
-    #if kEnableAdds
-    if (self.bannerIsVisible && indexPath.row == 0)
-    {
-        UITableViewCell *addCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"AddCell"];
-        
-        [addCell addSubview:self.bannerView];
-        
-        return addCell;
-    }
-#endif
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
@@ -251,11 +167,7 @@
         cell.contentView.backgroundColor = UIColorFromRGB(kColourEvenCells);
     }
     
-#if kEnableAdds
-    Cartoon *cartoon = [self.cartoons objectAtIndex:indexPath.row - 1];
-#else
     Cartoon *cartoon = [self.cartoons objectAtIndex:indexPath.row];
-#endif
     
     NSDate *date = [NSDate dateWithTimeIntervalSince1970:[cartoon date]];
     
@@ -275,11 +187,7 @@
     
     CartoonDetailViewController *controller = [[CartoonDetailViewController alloc] init];
 
-#if kEnableAdds
-    controller.cartoon = [self.cartoons objectAtIndex:indexPath.row - 1];
-#else
     controller.cartoon = [self.cartoons objectAtIndex:indexPath.row];
-#endif
     
     [controller setHidesBottomBarWhenPushed:YES];
     

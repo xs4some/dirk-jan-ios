@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		62041D9B1603A8FD00071B98 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62041D9A1603A8FD00071B98 /* iAd.framework */; };
 		62041D9E1603BA5000071B98 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62041D9D1603BA5000071B98 /* MessageUI.framework */; };
 		621539F115FB85430047EDC7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 621539F015FB85430047EDC7 /* UIKit.framework */; };
 		621539F315FB85430047EDC7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 621539F215FB85430047EDC7 /* Foundation.framework */; };
@@ -73,7 +72,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		62041D9A1603A8FD00071B98 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		62041D9D1603BA5000071B98 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		621539EC15FB85430047EDC7 /* DirkJan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DirkJan.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		621539F015FB85430047EDC7 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -170,7 +168,6 @@
 			files = (
 				62DCD3F11606F4D800A2B770 /* Twitter.framework in Frameworks */,
 				62041D9E1603BA5000071B98 /* MessageUI.framework in Frameworks */,
-				62041D9B1603A8FD00071B98 /* iAd.framework in Frameworks */,
 				62153B8F15FCB13D0047EDC7 /* QuartzCore.framework in Frameworks */,
 				62153B1115FB8F5A0047EDC7 /* CoreData.framework in Frameworks */,
 				62153AF415FB86B30047EDC7 /* SystemConfiguration.framework in Frameworks */,
@@ -208,7 +205,6 @@
 			children = (
 				62DCD3F01606F4D800A2B770 /* Twitter.framework */,
 				62041D9D1603BA5000071B98 /* MessageUI.framework */,
-				62041D9A1603A8FD00071B98 /* iAd.framework */,
 				62153B8E15FCB13C0047EDC7 /* QuartzCore.framework */,
 				62153B1015FB8F5A0047EDC7 /* CoreData.framework */,
 				62153AF315FB86B30047EDC7 /* SystemConfiguration.framework */,
