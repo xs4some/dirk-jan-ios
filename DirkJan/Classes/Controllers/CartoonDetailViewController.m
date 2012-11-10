@@ -20,8 +20,6 @@
 
 @implementation CartoonDetailViewController
 
-@synthesize cartoon;
-
 - (IBAction)displayShareOptions:(id)sender
 {
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle: NSLocalizedString(@"SHARE_VIA", @"")
@@ -45,6 +43,80 @@
     [actionSheet showInView:self.view];
 }
 
+- (IBAction)nextCartoon:(id)sender
+{
+    if (self.selectedCartoon < [self.cartoons count] - 1)
+    {
+        self.selectedCartoon += 1;
+        if ( self.selectedCartoon == [self.cartoons count] - 1)
+        {
+            self.nextButton.enabled = NO;
+        } else
+        {
+            self.previousButton.enabled = YES;
+        }
+        [self loadSelectdCartoon];
+    }
+}
+
+- (IBAction)previousCartoon:(id)sender
+{
+    if (self.selectedCartoon > 0)
+    {
+        self.selectedCartoon -= 1;
+        if (self.selectedCartoon == 0)
+        {
+            self.previousButton.enabled = NO;
+        } else
+        {
+            self.nextButton.enabled = YES;
+        }
+        [self loadSelectdCartoon];
+    }
+}
+
+- (void)loadSelectdCartoon
+{
+    Cartoon *cartoon = [self.cartoons objectAtIndex:self.selectedCartoon];
+
+//    TODO: There should be a name for this cartoon, this should be added to the dataset.
+//    self.cartoonTitle.title = [cartoon title];
+        
+    [ApplicationDelegate.engine imageAtURL:[NSURL URLWithString:[cartoon url]]
+                              onCompletion:^(UIImage *fetchedImage, NSURL *url, BOOL isInCache) {
+                                  if (isInCache) {
+                                      self.imageView.image = fetchedImage;
+                                      
+                                      CGSize imageSize = CGSizeMake(self.imageView.image.size.width, self.imageView.image.size.height);
+                                      [self.scrollView setContentSize:imageSize];
+                                  } else
+                                  {
+                                      UIImageView *loadedImageView = [[UIImageView alloc] initWithImage:fetchedImage];
+                                      loadedImageView.frame = self.imageView.frame;
+                                      loadedImageView.alpha = 0;
+                                      loadedImageView.contentMode = UIViewContentModeLeft;
+                                      [self.view addSubview:loadedImageView];
+                                      
+                                      [UIView animateWithDuration:0.4
+                                                       animations:^
+                                       {
+                                           loadedImageView.alpha = 1;
+                                           self.imageView.alpha = 0;
+                                       }
+                                                       completion:^(BOOL finished)
+                                       {
+                                           self.imageView.image = fetchedImage;
+                                           
+                                           CGSize imageSize = CGSizeMake(self.imageView.image.size.width, self.imageView.image.size.height);
+                                           [self.scrollView setContentSize:imageSize];
+                                           self.imageView.alpha = 1;
+                                           [loadedImageView removeFromSuperview];
+                                       }];
+                                  }
+                              }];
+    
+
+}
 
 - (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
 {
@@ -58,7 +130,7 @@
 {
     if (kEnableEmail && [[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:NSLocalizedString(@"SHARE_MAIL", @"")]) {
         MFMailComposeViewController *mailController = [[MFMailComposeViewController alloc] init];
-        [mailController addAttachmentData:UIImagePNGRepresentation(self.imageView.image) mimeType:@"" fileName:[self.cartoon name]];
+        [mailController addAttachmentData:UIImagePNGRepresentation(self.imageView.image) mimeType:@"" fileName:[[self.cartoons objectAtIndex:self.selectedCartoon] name]];
         [mailController setMessageBody:NSLocalizedString(@"SHARED_WITH", @"") isHTML:NO];
         [mailController setSubject:NSLocalizedString(@"SHARE_MAIL_SUBJECT", @"")];
         [mailController setMailComposeDelegate:self];
@@ -105,41 +177,18 @@
         
         [self.navigationItem setRightBarButtonItem:shareButton];
     }
-
-    [ApplicationDelegate.engine imageAtURL:[NSURL URLWithString:[self.cartoon url]]
-                              onCompletion:^(UIImage *fetchedImage, NSURL *url, BOOL isInCache) {
-                                  if (isInCache) {
-                                      self.imageView.image = fetchedImage;
-                                      
-                                      CGSize imageSize = CGSizeMake(self.imageView.image.size.width, self.imageView.image.size.height);
-                                      [self.scrollView setContentSize:imageSize];
-                                  } else
-                                  {
-                                      UIImageView *loadedImageView = [[UIImageView alloc] initWithImage:fetchedImage];
-                                      loadedImageView.frame = self.imageView.frame;
-                                      loadedImageView.alpha = 0;
-                                      loadedImageView.contentMode = UIViewContentModeLeft;
-                                      [self.view addSubview:loadedImageView];
-                                      
-                                      [UIView animateWithDuration:0.4
-                                                       animations:^
-                                       {
-                                           loadedImageView.alpha = 1;
-                                           self.imageView.alpha = 0;
-                                       }
-                                                       completion:^(BOOL finished)
-                                       {
-                                           self.imageView.image = fetchedImage;
-                                           
-                                           CGSize imageSize = CGSizeMake(self.imageView.image.size.width, self.imageView.image.size.height);
-                                           [self.scrollView setContentSize:imageSize];
-                                           self.imageView.alpha = 1;
-                                           [loadedImageView removeFromSuperview];
-                                       }];
-                                  }
-                              }];
-
     
+    if (self.selectedCartoon == 0)
+    {
+        self.previousButton.enabled = NO;
+    }
+    
+    if ( self.selectedCartoon == [self.cartoons count] - 1)
+    {
+        self.nextButton.enabled = NO;
+    }
+    
+    [self loadSelectdCartoon];
 }
 
 - (void)viewDidUnload
