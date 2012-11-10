@@ -31,32 +31,38 @@
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
-    NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:
-                                UIColorFromRGB(kColourNavigationButtons), UITextAttributeTextColor,
-                                [UIColor clearColor], UITextAttributeTextShadowColor, nil];
+    if ([[UIDevice currentDevice] systemVersion].floatValue >= 5)
+    {
+        
+        NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:
+                                    UIColorFromRGB(kColourNavigationButtons), UITextAttributeTextColor,
+                                    [UIColor clearColor], UITextAttributeTextShadowColor, nil];
     
-    [[UIBarButtonItem appearance] setTitleTextAttributes: attributes forState: UIControlStateNormal];
-    
+        [[UIBarButtonItem appearance] setTitleTextAttributes: attributes forState: UIControlStateNormal];
+    }
     UIViewController *viewController1 = [[CartoonsViewController alloc] initWithNibName:@"CartoonsViewController" bundle:nil];
     UINavigationController *navigationController1 = [[UINavigationController alloc] initWithRootViewController:viewController1];
 
     UIViewController *viewController2 = [[InformationViewController alloc] initWithNibName:@"InformationViewController" bundle:nil];
     UINavigationController *navigationController2 = [[UINavigationController alloc] initWithRootViewController:viewController2];
 
-    if (iPhone5) {
-        [navigationController1.navigationBar setBackgroundImage:[UIImage imageNamed:@"NavigationBar-568h~Landscape.png"] forBarMetrics:UIBarMetricsLandscapePhone];
-        [navigationController2.navigationBar setBackgroundImage:[UIImage imageNamed:@"NavigationBar-568h~Landscape.png"] forBarMetrics:UIBarMetricsLandscapePhone];
-    } else
+    if ([[UIDevice currentDevice] systemVersion].floatValue >= 5)
     {
-        [navigationController1.navigationBar setBackgroundImage:[UIImage imageNamed:@"NavigationBar~Landscape.png"] forBarMetrics:UIBarMetricsLandscapePhone];
-        [navigationController2.navigationBar setBackgroundImage:[UIImage imageNamed:@"NavigationBar~Landscape.png"] forBarMetrics:UIBarMetricsLandscapePhone];
+        if (iPhone5) {
+            [navigationController1.navigationBar setBackgroundImage:[UIImage imageNamed:@"NavigationBar-568h~Landscape.png"] forBarMetrics:UIBarMetricsLandscapePhone];
+            [navigationController2.navigationBar setBackgroundImage:[UIImage imageNamed:@"NavigationBar-568h~Landscape.png"] forBarMetrics:UIBarMetricsLandscapePhone];
+        } else
+        {
+            [navigationController1.navigationBar setBackgroundImage:[UIImage imageNamed:@"NavigationBar~Landscape.png"] forBarMetrics:UIBarMetricsLandscapePhone];
+            [navigationController2.navigationBar setBackgroundImage:[UIImage imageNamed:@"NavigationBar~Landscape.png"] forBarMetrics:UIBarMetricsLandscapePhone];
+        }
+        
+        [navigationController1.navigationBar setTintColor:UIColorFromRGB(kColourNavigationBar)];
+        [navigationController1.navigationBar setBackgroundImage:[UIImage imageNamed:@"NavigationBar.png"] forBarMetrics:UIBarMetricsDefault];
+        
+        [navigationController2.navigationBar setTintColor:UIColorFromRGB(kColourNavigationBar)];
+        [navigationController2.navigationBar setBackgroundImage:[UIImage imageNamed:@"NavigationBar.png"] forBarMetrics:UIBarMetricsDefault];
     }
-    
-    [navigationController1.navigationBar setTintColor:UIColorFromRGB(kColourNavigationBar)];
-    [navigationController1.navigationBar setBackgroundImage:[UIImage imageNamed:@"NavigationBar.png"] forBarMetrics:UIBarMetricsDefault];
-    
-    [navigationController2.navigationBar setTintColor:UIColorFromRGB(kColourNavigationBar)];
-    [navigationController2.navigationBar setBackgroundImage:[UIImage imageNamed:@"NavigationBar.png"] forBarMetrics:UIBarMetricsDefault];
     
     self.tabBarController = [[UITabBarController alloc] init];
     self.tabBarController.viewControllers = @[navigationController1, navigationController2];
