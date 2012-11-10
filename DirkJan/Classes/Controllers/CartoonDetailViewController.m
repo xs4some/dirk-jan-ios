@@ -38,6 +38,8 @@
         [actionSheet addButtonWithTitle:NSLocalizedString(@"SHARE_TWITTER", @"")];
     }
     
+    [actionSheet addButtonWithTitle:NSLocalizedString(@"SHARE_SAVETOPHOTOS", @"")];
+    
     [actionSheet addButtonWithTitle:NSLocalizedString(@"CANCEL", @"")];
     
     [actionSheet showInView:self.view];
@@ -128,7 +130,8 @@
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if (kEnableEmail && [[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:NSLocalizedString(@"SHARE_MAIL", @"")]) {
+    if (kEnableEmail && [[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:NSLocalizedString(@"SHARE_MAIL", @"")])
+    {
         MFMailComposeViewController *mailController = [[MFMailComposeViewController alloc] init];
         [mailController addAttachmentData:UIImagePNGRepresentation(self.imageView.image) mimeType:@"" fileName:[[self.cartoons objectAtIndex:self.selectedCartoon] name]];
         [mailController setMessageBody:NSLocalizedString(@"SHARED_WITH", @"") isHTML:NO];
@@ -144,13 +147,40 @@
         [self presentModalViewController:mailController animated:YES];
     }
     
-    if (kEnableTwitter && [[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:NSLocalizedString(@"SHARE_TWITTER", @"")]) {
+    if (kEnableTwitter && [[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:NSLocalizedString(@"SHARE_TWITTER", @"")])
+    {
         TWTweetComposeViewController *tweetController = [[TWTweetComposeViewController alloc] init];
         [tweetController addImage:self.imageView.image];
         [tweetController setInitialText:NSLocalizedString(@"SHARED_WITH", @"")];
         
         [self presentModalViewController:tweetController animated:YES];
 
+    }
+    
+    if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:NSLocalizedString(@"SHARE_SAVETOPHOTOS", @"")])
+    {
+        UIImageWriteToSavedPhotosAlbum(self.imageView.image, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+    }
+}
+
+- (void) image: (UIImage *) image didFinishSavingWithError: (NSError *) error contextInfo: (void *) contextInfo
+{
+    if (error)
+    {
+        UIAlertView *saveFailedAlert = [[UIAlertView alloc] initWithTitle: nil
+                                                                  message: [error localizedDescription]
+                                                                 delegate: nil
+                                                        cancelButtonTitle: NSLocalizedString(@"OK", @"")
+                                                        otherButtonTitles: nil];
+        [saveFailedAlert show];
+    } else
+    {
+        UIAlertView *savedAlert = [[UIAlertView alloc] initWithTitle: nil
+                                                             message: NSLocalizedString(@"SAVEDTOPHOTOS", @"")
+                                                            delegate: nil
+                                                   cancelButtonTitle: NSLocalizedString(@"OK", @"")
+                                                   otherButtonTitles: nil];
+        [savedAlert show];
     }
 }
 
@@ -167,16 +197,12 @@
 {
     [super viewDidLoad];
     
-    if (kEnableEmail && [MFMailComposeViewController canSendMail] &&
-        kEnableTwitter && [TWTweetComposeViewController canSendTweet])
-    {
-        UIBarButtonItem *shareButton = [[UIBarButtonItem alloc] initWithTitle: NSLocalizedString(@"SHARE_BUTTON", @"")
-                                                                        style: UIBarButtonItemStylePlain
-                                                                       target: self
-                                                                       action: @selector(displayShareOptions:)];
-        
-        [self.navigationItem setRightBarButtonItem:shareButton];
-    }
+    UIBarButtonItem *shareButton = [[UIBarButtonItem alloc] initWithTitle: NSLocalizedString(@"SHARE_BUTTON", @"")
+                                                                    style: UIBarButtonItemStylePlain
+                                                                   target: self
+                                                                   action: @selector(displayShareOptions:)];
+    
+    [self.navigationItem setRightBarButtonItem:shareButton];
     
     if (self.selectedCartoon == 0)
     {
