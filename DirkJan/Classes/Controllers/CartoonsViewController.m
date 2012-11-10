@@ -175,7 +175,6 @@
     
     cell.textLabel.text = [relativeDateTransformer transformedValue:date];
 
-    
     return cell;
 }
 
@@ -187,7 +186,8 @@
     
     CartoonDetailViewController *controller = [[CartoonDetailViewController alloc] init];
 
-    controller.cartoon = [self.cartoons objectAtIndex:indexPath.row];
+    controller.cartoons = self.cartoons;
+    controller.selectedCartoon = indexPath.row;
     
     [controller setHidesBottomBarWhenPushed:YES];
     
