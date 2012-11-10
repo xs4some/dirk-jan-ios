@@ -121,7 +121,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {    
-    return 24.0;
+    return 36.0;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
