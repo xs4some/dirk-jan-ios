@@ -18,6 +18,7 @@
 
 #define kCartoonUrl @"http://marijnzwemmer.com/websites/dirkjan/getAllJSON.php"
 #define kCartoonDateFormat @"yyyy-MM-dd"
+#define kCartoonDisplayDateFormat @"d MMMM yyyy"
 #define kCartoonFetchLimit 50
 
 // Defining the app to look a litle like Dirk Jan.
@@ -28,6 +29,7 @@
 
 #define kColourOddCells 0xFF802E
 #define kColourEvenCells 0xEC3D19
+#define kColourSeenCells 0xFBF39E
 #define kColourCellSeperator 0x000000
 #define kColourCellsInaRow 3
 

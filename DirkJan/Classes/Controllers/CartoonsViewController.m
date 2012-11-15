@@ -13,7 +13,6 @@
 #import "Cartoon.h"
 #import "CartoonCell.h"
 #import "MBProgressHUD.h"
-#import "SORelativeDateTransformer.h"
 #import "CartoonDetailViewController.h"
 #import "Const.h"
 
@@ -169,11 +168,14 @@
     
     Cartoon *cartoon = [self.cartoons objectAtIndex:indexPath.row];
     
-    NSDate *date = [NSDate dateWithTimeIntervalSince1970:[cartoon date]];
     
-    SORelativeDateTransformer *relativeDateTransformer = [[SORelativeDateTransformer alloc] init];
+    NSDate *date = [cartoon date];
+    NSDateFormatter *df = [[NSDateFormatter alloc] init];
+    NSLocale *locale = [[NSLocale alloc] initWithLocaleIdentifier:@"nl_NL"];
+    [df setLocale:locale];
+    [df setDateFormat:kCartoonDisplayDateFormat];
     
-    cell.textLabel.text = [relativeDateTransformer transformedValue:date];
+    cell.textLabel.text = [df stringFromDate:date];
 
     return cell;
 }
