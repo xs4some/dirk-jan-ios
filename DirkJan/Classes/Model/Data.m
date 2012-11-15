@@ -223,7 +223,7 @@
     return [__managedObjectContext executeFetchRequest:fetchRequest error:&error];
 }
 
--(NSArray*)getEntitiesOfType:(NSString *)entityName criteriaKey:(NSString *)keyName andValue:(NSString *)value
+-(NSArray*)getEntitiesOfType:(NSString *)entityName criteriaKey:(NSString *)keyName andValue:(NSObject *)value
 {
     if (!entityName || !keyName || !value)
         return [NSArray array];
@@ -232,23 +232,23 @@
     NSEntityDescription *entity = [NSEntityDescription entityForName:entityName inManagedObjectContext:__managedObjectContext];
     [fetchRequest setEntity:entity];
     
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%@ == %@",keyName, value];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@",keyName, value];
     [fetchRequest setPredicate:predicate];
     
     NSError *error;
     NSArray *results = [__managedObjectContext executeFetchRequest:fetchRequest error:&error];
-    
+        
     return results;
 }
 
--(id)getUniqueEntityOfType:(NSString *)entityName criteriaKey:(NSString *)keyName andValue:(NSString *)value
+-(id)getUniqueEntityOfType:(NSString *)entityName criteriaKey:(NSString *)keyName andValue:(NSObject *)value
 {
     if (!entityName || !keyName || !value)
         return nil;
     
     NSArray *results = [self getEntitiesOfType:entityName criteriaKey:keyName andValue:value];
     
-    if (results && results.count == 1)
+    if (results && results.count >= 1)
         return [results objectAtIndex:0];
     else
         return nil;

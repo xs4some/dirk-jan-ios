@@ -22,7 +22,6 @@
     return sharedInstance;
 }
 
-
 -(Cartoon *)createCartoon
 {
     return [self createNewEntityOfType:@"Cartoon"];
@@ -41,6 +40,11 @@
 -(NSArray *)getCartoonsWithOfSet:(NSUInteger)ofSet
 {
     return [self fetchAllEntitiesOfType:@"Cartoon" withOrderBy:@"date" andFetchLimit:kCartoonFetchLimit andOfSet:ofSet];
+}
+
+-(Cartoon *)getCartoonWithId:(NSNumber *) facebookId
+{
+    return (Cartoon *)[self getUniqueEntityOfType:@"Cartoon" criteriaKey:@"facebookId" andValue:facebookId];
 }
 
 @end

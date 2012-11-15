@@ -2,7 +2,7 @@
 //  Cartoon.m
 //  DirkJan
 //
-//  Created by Hendrik Bruinsma on 08-09-12.
+//  Created by Hendrik Bruinsma on 15-11-12.
 //  Copyright (c) 2012 Hendrik Bruinsma. All rights reserved.
 //
 
@@ -11,9 +11,11 @@
 
 @implementation Cartoon
 
+@dynamic date;
+@dynamic facebookId;
 @dynamic name;
 @dynamic url;
-@dynamic date;
+@dynamic viewed;
 @dynamic views;
 
 @end

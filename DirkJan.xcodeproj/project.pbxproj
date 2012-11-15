@@ -8,7 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		62041D9E1603BA5000071B98 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62041D9D1603BA5000071B98 /* MessageUI.framework */; };
-		621539F115FB85430047EDC7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 621539F015FB85430047EDC7 /* UIKit.framework */; };
+		620C9067164C45E9009148AD /* MigrateV1toV2Model.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = 620C9066164C45E9009148AD /* MigrateV1toV2Model.xcmappingmodel */; };
+		621539F115FB85430047EDC7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 621539F015FB85430047EDC7 /* UIKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		621539F315FB85430047EDC7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 621539F215FB85430047EDC7 /* Foundation.framework */; };
 		621539F515FB85430047EDC7 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 621539F415FB85430047EDC7 /* CoreGraphics.framework */; };
 		621539FD15FB85430047EDC7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 621539FC15FB85430047EDC7 /* main.m */; };
@@ -29,7 +30,6 @@
 		62153B0315FB8B540047EDC7 /* Data.m in Sources */ = {isa = PBXBuildFile; fileRef = 62153B0215FB8B540047EDC7 /* Data.m */; };
 		62153B0615FB8BB20047EDC7 /* DataImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 62153B0515FB8BB20047EDC7 /* DataImpl.m */; };
 		62153B0915FB8C8C0047EDC7 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 62153B0715FB8C8C0047EDC7 /* Model.xcdatamodeld */; };
-		62153B0F15FB8CEF0047EDC7 /* Cartoon.m in Sources */ = {isa = PBXBuildFile; fileRef = 62153B0E15FB8CEF0047EDC7 /* Cartoon.m */; };
 		62153B1115FB8F5A0047EDC7 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62153B1015FB8F5A0047EDC7 /* CoreData.framework */; };
 		62153B1515FBB9050047EDC7 /* CartoonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 62153B1415FBB9050047EDC7 /* CartoonCell.m */; };
 		62153B4315FBC55A0047EDC7 /* Disclaimer.plist in Resources */ = {isa = PBXBuildFile; fileRef = 62153B4215FBC55A0047EDC7 /* Disclaimer.plist */; };
@@ -54,6 +54,7 @@
 		6262043A1639A82C00D6D84C /* CartoonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 626204351639A82C00D6D84C /* CartoonCell.xib */; };
 		6262043B1639A82C00D6D84C /* InformationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 626204361639A82C00D6D84C /* InformationViewController.xib */; };
 		6262043C1639A82C00D6D84C /* DisclaimerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 626204371639A82C00D6D84C /* DisclaimerViewController.xib */; };
+		627C84661654FF55009D933F /* Cartoon.m in Sources */ = {isa = PBXBuildFile; fileRef = 627C84651654FF55009D933F /* Cartoon.m */; };
 		628A4DCD164E596100DA05B2 /* video_next.png in Resources */ = {isa = PBXBuildFile; fileRef = 628A4DC9164E596100DA05B2 /* video_next.png */; };
 		628A4DCE164E596100DA05B2 /* video_previous.png in Resources */ = {isa = PBXBuildFile; fileRef = 628A4DCA164E596100DA05B2 /* video_previous.png */; };
 		628A4DCF164E596100DA05B2 /* video_next@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 628A4DCB164E596100DA05B2 /* video_next@2x.png */; };
@@ -77,6 +78,8 @@
 
 /* Begin PBXFileReference section */
 		62041D9D1603BA5000071B98 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		620C9065164C4542009148AD /* Model 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 2.xcdatamodel"; sourceTree = "<group>"; };
+		620C9066164C45E9009148AD /* MigrateV1toV2Model.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; path = MigrateV1toV2Model.xcmappingmodel; sourceTree = "<group>"; };
 		621539EC15FB85430047EDC7 /* DirkJan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DirkJan.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		621539F015FB85430047EDC7 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		621539F215FB85430047EDC7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -117,8 +120,6 @@
 		62153B0415FB8BB20047EDC7 /* DataImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DataImpl.h; path = Model/DataImpl.h; sourceTree = "<group>"; };
 		62153B0515FB8BB20047EDC7 /* DataImpl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DataImpl.m; path = Model/DataImpl.m; sourceTree = "<group>"; };
 		62153B0815FB8C8C0047EDC7 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
-		62153B0D15FB8CEF0047EDC7 /* Cartoon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Cartoon.h; path = DirkJan/Classes/Model/Cartoon.h; sourceTree = SOURCE_ROOT; };
-		62153B0E15FB8CEF0047EDC7 /* Cartoon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Cartoon.m; path = DirkJan/Classes/Model/Cartoon.m; sourceTree = SOURCE_ROOT; };
 		62153B1015FB8F5A0047EDC7 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		62153B1315FBB9050047EDC7 /* CartoonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CartoonCell.h; path = CustomViews/CartoonCell.h; sourceTree = "<group>"; };
 		62153B1415FBB9050047EDC7 /* CartoonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CartoonCell.m; path = CustomViews/CartoonCell.m; sourceTree = "<group>"; };
@@ -157,6 +158,8 @@
 		626204351639A82C00D6D84C /* CartoonCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CartoonCell.xib; sourceTree = "<group>"; };
 		626204361639A82C00D6D84C /* InformationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InformationViewController.xib; sourceTree = "<group>"; };
 		626204371639A82C00D6D84C /* DisclaimerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DisclaimerViewController.xib; sourceTree = "<group>"; };
+		627C84641654FF55009D933F /* Cartoon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Cartoon.h; path = Model/Cartoon.h; sourceTree = "<group>"; };
+		627C84651654FF55009D933F /* Cartoon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Cartoon.m; path = Model/Cartoon.m; sourceTree = "<group>"; };
 		628A4DC9164E596100DA05B2 /* video_next.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = video_next.png; sourceTree = "<group>"; };
 		628A4DCA164E596100DA05B2 /* video_previous.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = video_previous.png; sourceTree = "<group>"; };
 		628A4DCB164E596100DA05B2 /* video_next@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "video_next@2x.png"; sourceTree = "<group>"; };
@@ -296,6 +299,7 @@
 		62153A8215FB86300047EDC7 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				620C9066164C45E9009148AD /* MigrateV1toV2Model.xcmappingmodel */,
 				62BC799B161481B0006AF4C4 /* Localizable.strings */,
 				62153A8315FB86300047EDC7 /* Images */,
 				62153A8915FB86300047EDC7 /* Views */,
@@ -421,8 +425,8 @@
 		62153B0015FB8B3B0047EDC7 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				62153B0D15FB8CEF0047EDC7 /* Cartoon.h */,
-				62153B0E15FB8CEF0047EDC7 /* Cartoon.m */,
+				627C84641654FF55009D933F /* Cartoon.h */,
+				627C84651654FF55009D933F /* Cartoon.m */,
 				62153B0115FB8B540047EDC7 /* Data.h */,
 				62153B0215FB8B540047EDC7 /* Data.m */,
 				62153B0415FB8BB20047EDC7 /* DataImpl.h */,
@@ -564,12 +568,13 @@
 				62153B0315FB8B540047EDC7 /* Data.m in Sources */,
 				62153B0615FB8BB20047EDC7 /* DataImpl.m in Sources */,
 				62153B0915FB8C8C0047EDC7 /* Model.xcdatamodeld in Sources */,
-				62153B0F15FB8CEF0047EDC7 /* Cartoon.m in Sources */,
 				62153B1515FBB9050047EDC7 /* CartoonCell.m in Sources */,
 				62153B4715FBC7440047EDC7 /* DisclaimerViewController.m in Sources */,
 				62153B5F15FBD52E0047EDC7 /* InformationViewController.m in Sources */,
 				6215BD2115FD08EA0047EDC7 /* SORelativeDateTransformer.m in Sources */,
 				6215BD2815FD0C790047EDC7 /* CartoonDetailViewController.m in Sources */,
+				620C9067164C45E9009148AD /* MigrateV1toV2Model.xcmappingmodel in Sources */,
+				627C84661654FF55009D933F /* Cartoon.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -591,7 +596,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = armv7;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -610,7 +615,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -619,7 +624,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = armv7;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -631,7 +636,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
@@ -646,7 +651,7 @@
 				GCC_PREFIX_HEADER = "DirkJan/DirkJan-Prefix.pch";
 				GCC_THUMB_SUPPORT = NO;
 				INFOPLIST_FILE = "DirkJan/DirkJan-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -659,7 +664,7 @@
 				GCC_PREFIX_HEADER = "DirkJan/DirkJan-Prefix.pch";
 				GCC_THUMB_SUPPORT = NO;
 				INFOPLIST_FILE = "DirkJan/DirkJan-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -692,9 +697,10 @@
 		62153B0715FB8C8C0047EDC7 /* Model.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				620C9065164C4542009148AD /* Model 2.xcdatamodel */,
 				62153B0815FB8C8C0047EDC7 /* Model.xcdatamodel */,
 			);
-			currentVersion = 62153B0815FB8C8C0047EDC7 /* Model.xcdatamodel */;
+			currentVersion = 620C9065164C4542009148AD /* Model 2.xcdatamodel */;
 			path = Model.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

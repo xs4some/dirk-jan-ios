@@ -12,5 +12,6 @@
 
 -(id)initService;
 -(NSArray *)getCartoonsOnCompletion:(void(^)(NSArray *cartoons))completionBlock onError:(MKNKErrorBlock)errorBlock;
+-(NSDictionary *)getCartoonInformationFromFacebook:(void(^)(NSDictionary *fbInfo))completionBlock onError:(MKNKErrorBlock)errorBlock;
 
 @end

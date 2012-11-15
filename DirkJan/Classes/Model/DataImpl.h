@@ -17,5 +17,6 @@
 -(void)removeCartoons;
 -(NSArray *)getCartoons;
 -(NSArray *)getCartoonsWithOfSet:(NSUInteger) ofSet;
+-(Cartoon *)getCartoonWithId:(NSNumber *) facebookId;
 
 @end

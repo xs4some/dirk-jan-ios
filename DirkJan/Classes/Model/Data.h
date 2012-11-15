@@ -24,10 +24,10 @@
 
 -(id)createNewEntityOfType:(NSString *) entityName;
 
--(NSArray *)getEntitiesOfType:(NSString *) entityName criteriaKey:(NSString *)keyName andValue:(NSString *)value;
--(id)getUniqueEntityOfType:(NSString *) entityName criteriaKey:(NSString *)keyName andValue:(NSString *)value;
+-(NSArray *)getEntitiesOfType:(NSString *) entityName criteriaKey:(NSString *)keyName andValue:(NSObject *)value;
+-(NSObject *)getUniqueEntityOfType:(NSString *) entityName criteriaKey:(NSString *)keyName andValue:(NSObject *)value;
 -(NSArray *)getAllEntitiesOfType:(NSString *)entityName andPredicate:(NSPredicate *) predicate;
--(NSArray *)getAllChildEntitiesOfType:(NSString *)childEntitiy withParentObject:(id)parentObject andParentAttribute:(NSString *) parentAttribute;
+-(NSArray *)getAllChildEntitiesOfType:(NSString *)childEntitiy withParentObject:(NSObject *)parentObject andParentAttribute:(NSString *) parentAttribute;
 
 -(NSArray *)fetchAllEntitiesOfType:(NSString *) entityName;
 -(NSArray *)fetchAllEntitiesOfType:(NSString *) entityName withOrderBy:(NSString *)orderAttribute;
