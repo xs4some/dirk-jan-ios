@@ -11,6 +11,7 @@
 #import "AppDelegate.h"
 #import "SORelativeDateTransformer.h"
 #import "Const.h"
+#import "DataImpl.h"
 
 #import <Twitter/Twitter.h>
 
@@ -83,6 +84,8 @@
 
 //    TODO: There should be a name for this cartoon, this should be added to the dataset.
 //    self.cartoonTitle.title = [cartoon title];
+    
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
         
     [ApplicationDelegate.engine imageAtURL:[NSURL URLWithString:[cartoon url]]
                               onCompletion:^(UIImage *fetchedImage, NSURL *url, BOOL isInCache) {
@@ -91,8 +94,16 @@
                                       
                                       CGSize imageSize = CGSizeMake(self.imageView.image.size.width, self.imageView.image.size.height);
                                       [self.scrollView setContentSize:imageSize];
+                                      [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
                                   } else
                                   {
+                                      DataImpl *dataImpl = [DataImpl sharedInstance];
+                                      
+                                      Cartoon *cartoonInDb = [dataImpl getCartoonWithId:[cartoon facebookId]];
+                                      cartoonInDb.viewed = @(YES);
+                                      cartoon.viewed = @(YES);
+                                      [dataImpl saveContext];
+                                      
                                       UIImageView *loadedImageView = [[UIImageView alloc] initWithImage:fetchedImage];
                                       loadedImageView.frame = self.imageView.frame;
                                       loadedImageView.alpha = 0;
@@ -114,6 +125,7 @@
                                            self.imageView.alpha = 1;
                                            [loadedImageView removeFromSuperview];
                                        }];
+                                      [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
                                   }
                               }];
     
