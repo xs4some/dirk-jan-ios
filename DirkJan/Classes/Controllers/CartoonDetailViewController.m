@@ -12,6 +12,7 @@
 #import "SORelativeDateTransformer.h"
 #import "Const.h"
 #import "DataImpl.h"
+#import "CartoonDetailsService.h"
 
 #import <Twitter/Twitter.h>
 
@@ -80,55 +81,79 @@
 
 - (void)loadSelectdCartoon
 {
-    Cartoon *cartoon = [self.cartoons objectAtIndex:self.selectedCartoon];
+    self.facebookId = [[self.cartoons objectAtIndex:self.selectedCartoon] facebookId];
 
-//    TODO: There should be a name for this cartoon, this should be added to the dataset.
-//    self.cartoonTitle.title = [cartoon title];
-    
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-        
-    [ApplicationDelegate.engine imageAtURL:[NSURL URLWithString:[cartoon url]]
-                              onCompletion:^(UIImage *fetchedImage, NSURL *url, BOOL isInCache) {
-                                  if (isInCache) {
-                                      self.imageView.image = fetchedImage;
-                                      
-                                      CGSize imageSize = CGSizeMake(self.imageView.image.size.width, self.imageView.image.size.height);
-                                      [self.scrollView setContentSize:imageSize];
-                                      [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-                                  } else
-                                  {
-                                      DataImpl *dataImpl = [DataImpl sharedInstance];
-                                      
-                                      Cartoon *cartoonInDb = [dataImpl getCartoonWithId:[cartoon facebookId]];
-                                      cartoonInDb.viewed = @(YES);
-                                      cartoon.viewed = @(YES);
-                                      [dataImpl saveContext];
-                                      
-                                      UIImageView *loadedImageView = [[UIImageView alloc] initWithImage:fetchedImage];
-                                      loadedImageView.frame = self.imageView.frame;
-                                      loadedImageView.alpha = 0;
-                                      loadedImageView.contentMode = UIViewContentModeLeft;
-                                      [self.view addSubview:loadedImageView];
-                                      
-                                      [UIView animateWithDuration:0.4
-                                                       animations:^
-                                       {
-                                           loadedImageView.alpha = 1;
-                                           self.imageView.alpha = 0;
-                                       }
-                                                       completion:^(BOOL finished)
-                                       {
-                                           self.imageView.image = fetchedImage;
-                                           
-                                           CGSize imageSize = CGSizeMake(self.imageView.image.size.width, self.imageView.image.size.height);
-                                           [self.scrollView setContentSize:imageSize];
-                                           self.imageView.alpha = 1;
-                                           [loadedImageView removeFromSuperview];
-                                       }];
-                                      [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-                                  }
-                              }];
     
+    CartoonDetailsService *cartoonDetailService = [[CartoonDetailsService alloc] initServiceWithFacebookId:self.facebookId];
+    
+    DataImpl *dataImpl = [DataImpl sharedInstance];
+    
+    Cartoon *cartoon = [dataImpl getCartoonWithId:self.facebookId];
+    
+    cartoon = [cartoonDetailService getCartoonInformationFromFacebook:^(Cartoon *cartoonFromService) {
+        if (!cartoonFromService)
+        {
+            // Something went wrong
+        } else
+        {
+//            self.cartoonTitle.title = cartoonFromService.name;
+
+            [ApplicationDelegate.engine imageAtURL:[NSURL URLWithString:[cartoonFromService imageUrl]]
+                                      onCompletion:^(UIImage *fetchedImage, NSURL *url, BOOL isInCache) {
+                                          if (isInCache) {
+                                              self.imageView.image = fetchedImage;
+                                              cartoon.viewed = @(YES);
+                                              [dataImpl saveContext];
+                                              
+                                              CGSize imageSize = CGSizeMake(self.imageView.image.size.width, self.imageView.image.size.height);
+                                              [self.scrollView setContentSize:imageSize];
+                                                                                           
+                                              [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+                                          } else
+                                          {
+                                              DataImpl *dataImpl = [DataImpl sharedInstance];
+                                              
+                                              Cartoon *cartoonInDb = [dataImpl getCartoonWithId:[cartoon facebookId]];
+                                              cartoonInDb.viewed = @(YES);
+                                              cartoon.viewed = @(YES);
+                                              [dataImpl saveContext];
+                                              
+                                              UIImageView *loadedImageView = [[UIImageView alloc] initWithImage:fetchedImage];
+                                              loadedImageView.frame = self.imageView.frame;
+                                              loadedImageView.alpha = 0;
+                                              loadedImageView.contentMode = UIViewContentModeRight;
+                                              [self.view addSubview:loadedImageView];
+                                              
+                                              [UIView animateWithDuration:0.4
+                                                               animations:^
+                                               {
+                                                   loadedImageView.alpha = 1;
+                                                   self.imageView.alpha = 0;
+                                               }
+                                                               completion:^(BOOL finished)
+                                               {
+                                                   self.imageView.image = fetchedImage;
+                                                   
+                                                   CGSize imageSize = CGSizeMake(self.imageView.image.size.width, self.imageView.image.size.height);
+                                                   [self.scrollView setContentSize:imageSize];
+                                                   
+                                                   self.imageView.alpha = 1;
+                                                   [loadedImageView removeFromSuperview];
+                                               }];
+                                              [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+                                          }
+                                      }];
+
+        }
+    } onError:^(NSError *error) {
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    }];
+                        
+    
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        
+        
 
 }
 
@@ -225,6 +250,8 @@
     {
         self.nextButton.enabled = NO;
     }
+    
+    self.facebookId = [[self.cartoons objectAtIndex:self.selectedCartoon] facebookId];
     
     [self loadSelectdCartoon];
 }

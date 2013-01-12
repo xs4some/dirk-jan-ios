@@ -15,6 +15,7 @@
 
 @property (nonatomic, retain) NSArray *cartoons;
 @property (nonatomic, assign) NSInteger selectedCartoon;
+@property (nonatomic, retain) NSNumber *facebookId;
 
 @property (nonatomic, retain) IBOutlet UIScrollView *scrollView;
 @property (nonatomic, retain) IBOutlet UIImageView *imageView;

@@ -6,12 +6,11 @@
 //  Copyright (c) 2012 Hendrik Bruinsma. All rights reserved.
 //
 
-#import "MKNetworkOperation.h"
+#import "BaseService.h"
 
-@interface CartoonService : MKNetworkOperation
+@interface CartoonService : BaseService
 
 -(id)initService;
 -(NSArray *)getCartoonsOnCompletion:(void(^)(NSArray *cartoons))completionBlock onError:(MKNKErrorBlock)errorBlock;
--(NSDictionary *)getCartoonInformationFromFacebook:(void(^)(NSDictionary *fbInfo))completionBlock onError:(MKNKErrorBlock)errorBlock;
 
 @end

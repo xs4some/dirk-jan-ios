@@ -13,12 +13,15 @@
 #define kEnableTwitter YES
 #define kEnableFaceBook NO
 
-#define kHttpUserAgentiPhone @"[DirkJan]:[iPhone]:[1.0]"
-#define kHttpUserAgentiPad @"[DirkJan]:[iPad]:[1.0]"
+#define kHttpUserAgentiPhone @"[DirkJan]:[iPhone]:[2.0]"
+#define kHttpUserAgentiPad @"[DirkJan]:[iPad]:[2.0]"
 
 #define kCartoonUrl @"http://marijnzwemmer.com/websites/dirkjan/getAllJSON.php"
+#define kCartoonAlbumUrl @"https://graph.facebook.com/163562567032164/photos?fields=name,link,id&limit=%d"
+#define kCartoonDetailsUrl @"https://graph.facebook.com/%@?fields=source,likes.limit(5000)"
 #define kCartoonDateFormat @"yyyy-MM-dd"
 #define kCartoonDisplayDateFormat @"d MMMM yyyy"
+#define kRfc822DateFormat @"yyyy-MM-dd'T'HH:mm:ssZZZ"
 #define kCartoonFetchLimit 50
 
 // Defining the app to look a litle like Dirk Jan.
