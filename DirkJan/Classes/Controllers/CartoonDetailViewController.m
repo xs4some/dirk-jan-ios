@@ -108,6 +108,7 @@
                                               
                                               CGSize imageSize = CGSizeMake(self.imageView.image.size.width, self.imageView.image.size.height);
                                               [self.scrollView setContentSize:imageSize];
+                                              [self.scrollView setContentOffset:CGPointMake(0, 0) animated:YES]; 
                                                                                            
                                               [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
                                           } else
@@ -137,6 +138,7 @@
                                                    
                                                    CGSize imageSize = CGSizeMake(self.imageView.image.size.width, self.imageView.image.size.height);
                                                    [self.scrollView setContentSize:imageSize];
+                                                   [self.scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
                                                    
                                                    self.imageView.alpha = 1;
                                                    [loadedImageView removeFromSuperview];
