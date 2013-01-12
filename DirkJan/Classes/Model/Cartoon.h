@@ -2,7 +2,7 @@
 //  Cartoon.h
 //  DirkJan
 //
-//  Created by Hendrik Bruinsma on 15-11-12.
+//  Created by Hendrik Bruinsma on 18-11-12.
 //  Copyright (c) 2012 Hendrik Bruinsma. All rights reserved.
 //
 
@@ -18,5 +18,7 @@
 @property (nonatomic, retain) NSString * url;
 @property (nonatomic, retain) NSNumber * viewed;
 @property (nonatomic, retain) NSNumber * views;
+@property (nonatomic, retain) NSNumber * likes;
+@property (nonatomic, retain) NSString * imageUrl;
 
 @end
