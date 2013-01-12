@@ -54,7 +54,10 @@
 		6262043A1639A82C00D6D84C /* CartoonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 626204351639A82C00D6D84C /* CartoonCell.xib */; };
 		6262043B1639A82C00D6D84C /* InformationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 626204361639A82C00D6D84C /* InformationViewController.xib */; };
 		6262043C1639A82C00D6D84C /* DisclaimerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 626204371639A82C00D6D84C /* DisclaimerViewController.xib */; };
-		627C84661654FF55009D933F /* Cartoon.m in Sources */ = {isa = PBXBuildFile; fileRef = 627C84651654FF55009D933F /* Cartoon.m */; };
+		627C8609165814A3009D933F /* CartoonDetailsService.m in Sources */ = {isa = PBXBuildFile; fileRef = 627C8608165814A3009D933F /* CartoonDetailsService.m */; };
+		627C860D1658162A009D933F /* BaseService.m in Sources */ = {isa = PBXBuildFile; fileRef = 627C860C1658162A009D933F /* BaseService.m */; };
+		627C8623165906AB009D933F /* Cartoon.m in Sources */ = {isa = PBXBuildFile; fileRef = 627C8622165906AB009D933F /* Cartoon.m */; };
+		627C862516590C8A009D933F /* MigrateV2toV3Model.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = 627C862416590C8A009D933F /* MigrateV2toV3Model.xcmappingmodel */; };
 		628A4DCD164E596100DA05B2 /* video_next.png in Resources */ = {isa = PBXBuildFile; fileRef = 628A4DC9164E596100DA05B2 /* video_next.png */; };
 		628A4DCE164E596100DA05B2 /* video_previous.png in Resources */ = {isa = PBXBuildFile; fileRef = 628A4DCA164E596100DA05B2 /* video_previous.png */; };
 		628A4DCF164E596100DA05B2 /* video_next@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 628A4DCB164E596100DA05B2 /* video_next@2x.png */; };
@@ -158,8 +161,14 @@
 		626204351639A82C00D6D84C /* CartoonCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CartoonCell.xib; sourceTree = "<group>"; };
 		626204361639A82C00D6D84C /* InformationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InformationViewController.xib; sourceTree = "<group>"; };
 		626204371639A82C00D6D84C /* DisclaimerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DisclaimerViewController.xib; sourceTree = "<group>"; };
-		627C84641654FF55009D933F /* Cartoon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Cartoon.h; path = Model/Cartoon.h; sourceTree = "<group>"; };
-		627C84651654FF55009D933F /* Cartoon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Cartoon.m; path = Model/Cartoon.m; sourceTree = "<group>"; };
+		627C8607165814A3009D933F /* CartoonDetailsService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CartoonDetailsService.h; path = Services/CartoonDetailsService.h; sourceTree = "<group>"; };
+		627C8608165814A3009D933F /* CartoonDetailsService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CartoonDetailsService.m; path = Services/CartoonDetailsService.m; sourceTree = "<group>"; };
+		627C860B1658162A009D933F /* BaseService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BaseService.h; path = Services/BaseService.h; sourceTree = "<group>"; };
+		627C860C1658162A009D933F /* BaseService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BaseService.m; path = Services/BaseService.m; sourceTree = "<group>"; };
+		627C86201659064E009D933F /* Model 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Model 3.xcdatamodel"; sourceTree = "<group>"; };
+		627C8621165906AB009D933F /* Cartoon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Cartoon.h; path = Model/Cartoon.h; sourceTree = "<group>"; };
+		627C8622165906AB009D933F /* Cartoon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Cartoon.m; path = Model/Cartoon.m; sourceTree = "<group>"; };
+		627C862416590C8A009D933F /* MigrateV2toV3Model.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; path = MigrateV2toV3Model.xcmappingmodel; sourceTree = "<group>"; };
 		628A4DC9164E596100DA05B2 /* video_next.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = video_next.png; sourceTree = "<group>"; };
 		628A4DCA164E596100DA05B2 /* video_previous.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = video_previous.png; sourceTree = "<group>"; };
 		628A4DCB164E596100DA05B2 /* video_next@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "video_next@2x.png"; sourceTree = "<group>"; };
@@ -306,6 +315,7 @@
 				62153B0715FB8C8C0047EDC7 /* Model.xcdatamodeld */,
 				62153B4215FBC55A0047EDC7 /* Disclaimer.plist */,
 				62153B6115FBD65D0047EDC7 /* Information.plist */,
+				627C862416590C8A009D933F /* MigrateV2toV3Model.xcmappingmodel */,
 			);
 			name = Resources;
 			path = DirkJan/Resources;
@@ -408,8 +418,12 @@
 		62153AFD15FB895E0047EDC7 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				627C860B1658162A009D933F /* BaseService.h */,
+				627C860C1658162A009D933F /* BaseService.m */,
 				62153AFA15FB89540047EDC7 /* CartoonService.h */,
 				62153AFB15FB89540047EDC7 /* CartoonService.m */,
+				627C8607165814A3009D933F /* CartoonDetailsService.h */,
+				627C8608165814A3009D933F /* CartoonDetailsService.m */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -425,8 +439,8 @@
 		62153B0015FB8B3B0047EDC7 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				627C84641654FF55009D933F /* Cartoon.h */,
-				627C84651654FF55009D933F /* Cartoon.m */,
+				627C8621165906AB009D933F /* Cartoon.h */,
+				627C8622165906AB009D933F /* Cartoon.m */,
 				62153B0115FB8B540047EDC7 /* Data.h */,
 				62153B0215FB8B540047EDC7 /* Data.m */,
 				62153B0415FB8BB20047EDC7 /* DataImpl.h */,
@@ -574,7 +588,10 @@
 				6215BD2115FD08EA0047EDC7 /* SORelativeDateTransformer.m in Sources */,
 				6215BD2815FD0C790047EDC7 /* CartoonDetailViewController.m in Sources */,
 				620C9067164C45E9009148AD /* MigrateV1toV2Model.xcmappingmodel in Sources */,
-				627C84661654FF55009D933F /* Cartoon.m in Sources */,
+				627C8609165814A3009D933F /* CartoonDetailsService.m in Sources */,
+				627C860D1658162A009D933F /* BaseService.m in Sources */,
+				627C8623165906AB009D933F /* Cartoon.m in Sources */,
+				627C862516590C8A009D933F /* MigrateV2toV3Model.xcmappingmodel in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -697,10 +714,11 @@
 		62153B0715FB8C8C0047EDC7 /* Model.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				627C86201659064E009D933F /* Model 3.xcdatamodel */,
 				620C9065164C4542009148AD /* Model 2.xcdatamodel */,
 				62153B0815FB8C8C0047EDC7 /* Model.xcdatamodel */,
 			);
-			currentVersion = 620C9065164C4542009148AD /* Model 2.xcdatamodel */;
+			currentVersion = 627C86201659064E009D933F /* Model 3.xcdatamodel */;
 			path = Model.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
