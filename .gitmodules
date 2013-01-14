@@ -1,3 +1,6 @@
 [submodule "DirkJan/Classes/Dependencies/MKNetworkKit"]
 	path = DirkJan/Classes/Dependencies/MKNetworkKit
 	url = https://github.com/MugunthKumar/MKNetworkKit.git
+[submodule "DirkJan/Classes/Dependencies/MBProgressHUD"]
+	path = DirkJan/Classes/Dependencies/MBProgressHUD
+	url = https://github.com/jdg/MBProgressHUD.git
