@@ -37,8 +37,6 @@
 		62153B5F15FBD52E0047EDC7 /* InformationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 62153B5D15FBD52E0047EDC7 /* InformationViewController.m */; };
 		62153B6215FBD65D0047EDC7 /* Information.plist in Resources */ = {isa = PBXBuildFile; fileRef = 62153B6115FBD65D0047EDC7 /* Information.plist */; };
 		62153B8F15FCB13D0047EDC7 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62153B8E15FCB13C0047EDC7 /* QuartzCore.framework */; };
-		6215BD2015FD08EA0047EDC7 /* SORelativeDateTransformer.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6215BD1D15FD08EA0047EDC7 /* SORelativeDateTransformer.bundle */; };
-		6215BD2115FD08EA0047EDC7 /* SORelativeDateTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6215BD1F15FD08EA0047EDC7 /* SORelativeDateTransformer.m */; };
 		6215BD2815FD0C790047EDC7 /* CartoonDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6215BD2615FD0C790047EDC7 /* CartoonDetailViewController.m */; };
 		6225D455163B16A90082FA08 /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6225D454163B16A90082FA08 /* Icon-Small@2x.png */; };
 		6262042A1639A32700D6D84C /* NavigationBar-568h~Landscape@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 629EC1761602F76700865E89 /* NavigationBar-568h~Landscape@2x.png */; };
@@ -146,9 +144,6 @@
 		62153B5D15FBD52E0047EDC7 /* InformationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InformationViewController.m; sourceTree = "<group>"; };
 		62153B6115FBD65D0047EDC7 /* Information.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Information.plist; sourceTree = "<group>"; };
 		62153B8E15FCB13C0047EDC7 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		6215BD1D15FD08EA0047EDC7 /* SORelativeDateTransformer.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SORelativeDateTransformer.bundle; sourceTree = "<group>"; };
-		6215BD1E15FD08EA0047EDC7 /* SORelativeDateTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SORelativeDateTransformer.h; sourceTree = "<group>"; };
-		6215BD1F15FD08EA0047EDC7 /* SORelativeDateTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SORelativeDateTransformer.m; sourceTree = "<group>"; };
 		6215BD2515FD0C780047EDC7 /* CartoonDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CartoonDetailViewController.h; sourceTree = "<group>"; };
 		6215BD2615FD0C790047EDC7 /* CartoonDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CartoonDetailViewController.m; sourceTree = "<group>"; };
 		6215BD2D15FD1B310047EDC7 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
@@ -165,7 +160,7 @@
 		627C8608165814A3009D933F /* CartoonDetailsService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CartoonDetailsService.m; path = Services/CartoonDetailsService.m; sourceTree = "<group>"; };
 		627C860B1658162A009D933F /* BaseService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BaseService.h; path = Services/BaseService.h; sourceTree = "<group>"; };
 		627C860C1658162A009D933F /* BaseService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BaseService.m; path = Services/BaseService.m; sourceTree = "<group>"; };
-		627C86201659064E009D933F /* Model 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Model 3.xcdatamodel"; sourceTree = "<group>"; };
+		627C86201659064E009D933F /* Model 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 3.xcdatamodel"; sourceTree = "<group>"; };
 		627C8621165906AB009D933F /* Cartoon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Cartoon.h; path = Model/Cartoon.h; sourceTree = "<group>"; };
 		627C8622165906AB009D933F /* Cartoon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Cartoon.m; path = Model/Cartoon.m; sourceTree = "<group>"; };
 		627C862416590C8A009D933F /* MigrateV2toV3Model.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; path = MigrateV2toV3Model.xcmappingmodel; sourceTree = "<group>"; };
@@ -289,7 +284,6 @@
 		62153A2415FB86300047EDC7 /* Dependencies */ = {
 			isa = PBXGroup;
 			children = (
-				6215BD1C15FD08E90047EDC7 /* SORelativeDateTransformer */,
 				62153AD515FB865F0047EDC7 /* MKNetworkKit */,
 				62153A2515FB86300047EDC7 /* MBProgressHUD */,
 			);
@@ -458,16 +452,6 @@
 			name = CustomViews;
 			sourceTree = "<group>";
 		};
-		6215BD1C15FD08E90047EDC7 /* SORelativeDateTransformer */ = {
-			isa = PBXGroup;
-			children = (
-				6215BD1D15FD08EA0047EDC7 /* SORelativeDateTransformer.bundle */,
-				6215BD1E15FD08EA0047EDC7 /* SORelativeDateTransformer.h */,
-				6215BD1F15FD08EA0047EDC7 /* SORelativeDateTransformer.m */,
-			);
-			path = SORelativeDateTransformer;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -535,7 +519,6 @@
 				62153B4315FBC55A0047EDC7 /* Disclaimer.plist in Resources */,
 				62153B6215FBD65D0047EDC7 /* Information.plist in Resources */,
 				6262042D1639A5BB00D6D84C /* NavigationBar.png in Resources */,
-				6215BD2015FD08EA0047EDC7 /* SORelativeDateTransformer.bundle in Resources */,
 				62BC798D16148137006AF4C4 /* info_64.png in Resources */,
 				62BC798E16148137006AF4C4 /* warning_64.png in Resources */,
 				62BC7999161481B0006AF4C4 /* Localizable.strings in Resources */,
@@ -585,7 +568,6 @@
 				62153B1515FBB9050047EDC7 /* CartoonCell.m in Sources */,
 				62153B4715FBC7440047EDC7 /* DisclaimerViewController.m in Sources */,
 				62153B5F15FBD52E0047EDC7 /* InformationViewController.m in Sources */,
-				6215BD2115FD08EA0047EDC7 /* SORelativeDateTransformer.m in Sources */,
 				6215BD2815FD0C790047EDC7 /* CartoonDetailViewController.m in Sources */,
 				620C9067164C45E9009148AD /* MigrateV1toV2Model.xcmappingmodel in Sources */,
 				627C8609165814A3009D933F /* CartoonDetailsService.m in Sources */,

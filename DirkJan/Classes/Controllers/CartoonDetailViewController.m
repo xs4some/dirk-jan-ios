@@ -9,7 +9,6 @@
 #import "CartoonDetailViewController.h"
 
 #import "AppDelegate.h"
-#import "SORelativeDateTransformer.h"
 #import "Const.h"
 #import "DataImpl.h"
 #import "CartoonDetailsService.h"
