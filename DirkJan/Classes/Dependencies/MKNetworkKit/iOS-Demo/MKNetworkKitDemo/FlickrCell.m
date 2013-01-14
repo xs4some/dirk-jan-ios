@@ -9,11 +9,6 @@
 #import "FlickrCell.h"
 
 @implementation FlickrCell
-@synthesize titleLabel = titleLabel_;
-@synthesize authorNameLabel = authorNameLabel_;
-@synthesize thumbnailImage = thumbnailImage_;
-@synthesize loadingImageURLString = loadingImageURLString_;
-@synthesize imageLoadingOperation = imageLoadingOperation_;
 
 //=========================================================== 
 // + (BOOL)automaticallyNotifiesObserversForKey:
@@ -56,40 +51,27 @@
 
 -(void) setFlickrData:(NSDictionary*) thisFlickrImage {
     
-    self.titleLabel.text = [thisFlickrImage objectForKey:@"title"];
-	self.authorNameLabel.text = [thisFlickrImage objectForKey:@"owner"];
+    self.titleLabel.text = thisFlickrImage[@"title"];
+	self.authorNameLabel.text = thisFlickrImage[@"owner"];
     self.loadingImageURLString =
     [NSString stringWithFormat:@"http://farm%@.static.flickr.com/%@/%@_%@_s.jpg", 
-     [thisFlickrImage objectForKey:@"farm"], [thisFlickrImage objectForKey:@"server"], 
-     [thisFlickrImage objectForKey:@"id"], [thisFlickrImage objectForKey:@"secret"]];
+     thisFlickrImage[@"farm"], thisFlickrImage[@"server"], 
+     thisFlickrImage[@"id"], thisFlickrImage[@"secret"]];
     
-    self.imageLoadingOperation = [ApplicationDelegate.flickrEngine imageAtURL:[NSURL URLWithString:self.loadingImageURLString] 
-                                    onCompletion:^(UIImage *fetchedImage, NSURL *url, BOOL isInCache) {
+    self.imageLoadingOperation = [ApplicationDelegate.flickrEngine imageAtURL:[NSURL URLWithString:self.loadingImageURLString]
+                                                                         size:self.thumbnailImage.frame.size
+                                    completionHandler:^(UIImage *fetchedImage, NSURL *url, BOOL isInCache) {
                                         
                                         if([self.loadingImageURLString isEqualToString:[url absoluteString]]) {
-                                            
-                                            if (isInCache) {
-                                                self.thumbnailImage.image = fetchedImage;
-                                            } else {
-                                                UIImageView *loadedImageView = [[UIImageView alloc] initWithImage:fetchedImage];
-                                                loadedImageView.frame = self.thumbnailImage.frame;
-                                                loadedImageView.alpha = 0;
-                                                [self.contentView addSubview:loadedImageView];
-                                                
-                                                [UIView animateWithDuration:0.4
-                                                                 animations:^
-                                                 {
-                                                     loadedImageView.alpha = 1;
-                                                     self.thumbnailImage.alpha = 0;
-                                                 }
-                                                                 completion:^(BOOL finished)
-                                                 {
-                                                     self.thumbnailImage.image = fetchedImage;
-                                                     self.thumbnailImage.alpha = 1;
-                                                     [loadedImageView removeFromSuperview];
-                                                 }];
-                                            }
+                                          
+                                          [UIView transitionWithView:self.contentView
+                                                            duration:isInCache?0.1f:0.4f
+                                                             options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
+                                                               self.thumbnailImage.image = fetchedImage;
+                                                             } completion:nil];
                                         }
+                                    } errorHandler:^(MKNetworkOperation *completedOperation, NSError *error) {
+                                      
                                     }];
 }
 

@@ -10,7 +10,6 @@
 #import "FlickrCell.h"
 
 @implementation FlickrTableViewController
-@synthesize flickrImages = flickrImages_;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -56,12 +55,12 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    [ApplicationDelegate.flickrEngine imagesForTag:@"Singapore" onCompletion:^(NSMutableArray* images) {
+    [ApplicationDelegate.flickrEngine imagesForTag:@"Singapore" completionHandler:^(NSMutableArray* images) {
         
         self.flickrImages = images;
         [self.tableView reloadData];        
     }
-                                   onError:^(NSError* error) {
+                                   errorHandler:^(NSError* error) {
                                        
                                    }];
     
@@ -102,7 +101,7 @@
 {
 	FlickrCell *cell = (FlickrCell*)[tableView dequeueReusableCellWithIdentifier:@"FlickrCell"];
     
-    NSDictionary *thisFlickrImage = [self.flickrImages objectAtIndex:indexPath.row];
+    NSDictionary *thisFlickrImage = (self.flickrImages)[indexPath.row];
 
     // code from Stanford Tutorial
     [cell setFlickrData:thisFlickrImage];

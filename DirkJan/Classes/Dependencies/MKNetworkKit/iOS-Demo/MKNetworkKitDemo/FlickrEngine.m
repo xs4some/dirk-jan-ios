@@ -27,16 +27,17 @@
 
 @implementation FlickrEngine
 
--(void) imagesForTag:(NSString*) tag onCompletion:(FlickrImagesResponseBlock) imageURLBlock onError:(MKNKErrorBlock) errorBlock {
+-(void) imagesForTag:(NSString*) tag completionHandler:(FlickrImagesResponseBlock) imageURLBlock errorHandler:(MKNKErrorBlock) errorBlock {
 
-    MKNetworkOperation *op = [self operationWithPath:FLICKR_IMAGE_URL([tag urlEncodedString])];
+    MKNetworkOperation *op = [self operationWithPath:FLICKR_IMAGE_URL([tag mk_urlEncodedString])];
 
-    [op onCompletion:^(MKNetworkOperation *completedOperation) {
+    [op addCompletionHandler:^(MKNetworkOperation *completedOperation) {
     
-        NSDictionary *response = [completedOperation responseJSON];
-        imageURLBlock([[response objectForKey:@"photos"] objectForKey:@"photo"]);
+        [completedOperation responseJSONWithCompletionHandler:^(id jsonObject) {
+          imageURLBlock(jsonObject[@"photos"][@"photo"]);
+        }];        
         
-    } onError:^(NSError *error) {
+    } errorHandler:^(MKNetworkOperation *errorOp, NSError* error) {
         
         errorBlock(error);
     }];
@@ -47,7 +48,7 @@
 -(NSString*) cacheDirectoryName {
     
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *documentsDirectory = paths[0];
     NSString *cacheDirectoryName = [documentsDirectory stringByAppendingPathComponent:@"FlickrImages"];
     return cacheDirectoryName;
 }

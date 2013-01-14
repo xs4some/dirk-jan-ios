@@ -28,15 +28,6 @@
 
 @implementation ViewController
 
-@synthesize uploadOperation = _uploadOperation;
-@synthesize downloadOperation = _downloadOperation;
-@synthesize currencyOperation = _currencyOperation;
-
-@synthesize downloadProgessBar = _downloadProgessBar;
-@synthesize uploadProgessBar = _uploadProgessBar;
-@synthesize userTextField = _userTextField;
-@synthesize passwordTextField = _passwordTextField;
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -70,16 +61,11 @@
     // upload and download operations are expected to run in background even when view disappears
 }
 
--(IBAction)postDataToServer:(id)sender {
-    
-    [ApplicationDelegate.samplePoster postDataToServer];
-}
-
 -(IBAction)convertCurrencyTapped:(id)sender {
         
     self.currencyOperation = [ApplicationDelegate.yahooEngine currencyRateFor:@"SGD" 
                                                                    inCurrency:@"USD" 
-                                                                 onCompletion:^(double rate) {
+                                                                 completionHandler:^(double rate) {
                                                                      
                                                                      [[[UIAlertView alloc] initWithTitle:@"Today's Singapore Dollar Rates"                              
                                                                                                                      message:[NSString stringWithFormat:@"%.2f", rate]
@@ -87,8 +73,8 @@
                                                                                                            cancelButtonTitle:NSLocalizedString(@"Dismiss", @"")
                                                                                                            otherButtonTitles:nil] show];
                                                                  } 
-                                                                      onError:^(NSError* error) {
-                                                                          
+                                                                      errorHandler:^(NSError* error) {
+                                                                        
                                                                           
                                                                           DLog(@"%@\t%@\t%@\t%@", [error localizedDescription], [error localizedFailureReason], 
                                                                                [error localizedRecoveryOptions], [error localizedRecoverySuggestion]);
@@ -97,26 +83,19 @@
 
 -(IBAction)uploadImageTapped:(id)sender {
     
-    if([kTwitterUserName length] == 0) {
-        
-        [[[UIAlertView alloc] initWithTitle:@"Twitter Account Not Set" 
-                                   message:@"Set your twitter name/password in AppDelegate.h and try again" 
-                                   delegate:nil cancelButtonTitle:@"Dismiss" otherButtonTitles: nil] show];
-        return;
-    }
     NSString *uploadPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingFormat:@"/SampleImage.jpg"];
-    self.uploadOperation = [ApplicationDelegate.sampleAuth uploadImageFromFile:uploadPath 
-                                                                       onCompletion:^(NSString *twitPicURL) {
+    self.uploadOperation = [ApplicationDelegate.testsEngine uploadImageFromFile:uploadPath
+                                                                       completionHandler:^(id twitPicURL) {
                                                                            
                                                                            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Uploaded to"                              
-                                                                                                                           message:twitPicURL
+                                                                                                                           message:(NSString*) twitPicURL
                                                                                                                           delegate:nil
                                                                                                                  cancelButtonTitle:NSLocalizedString(@"Dismiss", @"")
                                                                                                                  otherButtonTitles:nil];
                                                                            [alert show];
                                                                            self.uploadProgessBar.progress = 0.0;
                                                                        } 
-                                                                            onError:^(NSError* error) {
+                                                                            errorHandler:^(NSError* error) {
                                                                                 
                                                                                 [UIAlertView showWithError:error];
                                                                             }];    
@@ -132,10 +111,10 @@
 -(IBAction)downloadFileTapped:(id)sender {
     
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
-    NSString *cachesDirectory = [paths objectAtIndex:0];
+    NSString *cachesDirectory = paths[0];
 	NSString *downloadPath = [cachesDirectory stringByAppendingPathComponent:@"DownloadedFile.pdf"];
     
-    self.downloadOperation = [ApplicationDelegate.sampleDownloader downloadFatAssFileFrom:@"http://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSURLRequest_Class/NSURLRequest_Class.pdf" 
+    self.downloadOperation = [ApplicationDelegate.testsEngine downloadFatAssFileFrom:@"http://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSURLRequest_Class/NSURLRequest_Class.pdf"
                                                                                    toFile:downloadPath]; 
     
     [self.downloadOperation onDownloadProgressChanged:^(double progress) {
@@ -144,7 +123,7 @@
         self.downloadProgessBar.progress = progress;
     }];
     
-    [self.downloadOperation onCompletion:^(MKNetworkOperation* completedRequest) {
+    [self.downloadOperation addCompletionHandler:^(MKNetworkOperation* completedRequest) {
         
         DLog(@"%@", completedRequest);   
         self.downloadProgessBar.progress = 0.0f;
@@ -155,7 +134,7 @@
                                               otherButtonTitles:nil];
         [alert show];
     }
-                                 onError:^(NSError* error) {
+                                 errorHandler:^(MKNetworkOperation *errorOp, NSError* error) {
                                      
                                      DLog(@"%@", error);
                                      [UIAlertView showWithError:error];
@@ -175,11 +154,11 @@
     return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
 }
 
-- (IBAction)testAuthTapped:(id)sender {
-    
-    //[ApplicationDelegate.sampleAuth basicAuthTest];
-    //[ApplicationDelegate.sampleAuth digestAuthTest];
-    [ApplicationDelegate.sampleAuth digestAuthTestWithUser:self.userTextField.text password:self.passwordTextField.text];
-    //[ApplicationDelegate.sampleAuth clientCertTest];
+- (IBAction)runTestsTapped:(id)sender {
+
+  [ApplicationDelegate.testsEngine basicAuthTest];
+  [ApplicationDelegate.testsEngine digestAuthTest];
+  [ApplicationDelegate.httpsTestsEngine serverTrustTest];
+  [ApplicationDelegate.httpsTestsEngine clientCertTest];
 }
 @end

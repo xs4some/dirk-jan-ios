@@ -1,9 +1,9 @@
 //
-//  ExampleUploader.h
+//  NSAlert+MKNetworkKitAdditions.m
 //  MKNetworkKitDemo
 //
 //  Created by Mugunth Kumar (@mugunthkumar) on 11/11/11.
-//  Copyright (C) 2011-2020 by Steinlogic
+//  Copyright (C) 2011-2020 by Steinlogic Consulting and Training Pte Ltd
 
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,12 +22,18 @@
 //  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
+#if !TARGET_OS_IPHONE
+#import "NSAlert+MKNetworkKitAdditions.h"
 
-@interface ExampleUploader : MKNetworkEngine
-typedef void (^TwitPicBlock)(NSString *twitPicURL);
+@implementation NSAlert (MKNetworkKitAdditions)
 
--(MKNetworkOperation*) uploadImageFromFile:(NSString*) file 
-                              onCompletion:(TwitPicBlock) completionBlock
-                                   onError:(MKNKErrorBlock) errorBlock;
++(NSAlert*) showWithError:(NSError*) networkError {
 
+    DLog(@"%@", [networkError userInfo]);
+    
+    NSAlert *alert = [NSAlert alertWithError:networkError];
+    [alert runModal];
+    return alert;
+}
 @end
+#endif

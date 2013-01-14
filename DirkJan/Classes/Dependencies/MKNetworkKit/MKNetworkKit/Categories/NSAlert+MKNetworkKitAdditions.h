@@ -1,9 +1,9 @@
 //
-//  ExampleDownloader.m
+//  NSAlert+MKNetworkKitAdditions.h
 //  MKNetworkKitDemo
 //
 //  Created by Mugunth Kumar (@mugunthkumar) on 11/11/11.
-//  Copyright (C) 2011-2020 by Steinlogic
+//  Copyright (C) 2011-2020 by Steinlogic Consulting and Training Pte Ltd
 
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -23,21 +23,10 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
-#import "ExampleDownloader.h"
+#if !TARGET_OS_IPHONE
+#import <AppKit/AppKit.h>
 
-@implementation ExampleDownloader
-
-
--(MKNetworkOperation*) downloadFatAssFileFrom:(NSString*) remoteURL toFile:(NSString*) filePath {
-    
-    MKNetworkOperation *op = [self operationWithURLString:remoteURL 
-                                                        params:nil
-                                                  httpMethod:@"GET"];
-    
-    [op addDownloadStream:[NSOutputStream outputStreamToFileAtPath:filePath
-                                                                 append:YES]];
-    
-    [self enqueueOperation:op];
-    return op;
-}
+@interface NSAlert (MKNetworkKitAdditions)
++(NSAlert*) showWithError:(NSError*) networkError;
 @end
+#endif
